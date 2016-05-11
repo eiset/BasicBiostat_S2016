@@ -823,10 +823,8 @@ ggplot(dta, aes(heart, leg)) +
         stat_function(fun = function(x) x, geom = "line")
 CheckNorm(dta$dif)
 
-
-. * Heart values are on average bigger.
-. * But for the actual values we can also see the opposite as seen from
-. * the scatter plot below.
+# From the stata log: Heart values are on average bigger. But for the actual 
+# values we can also see the opposite as seen from the scatter plot below.
 
 ## Q2 + Q3 + Q4
 Explore(dta$dif, length(dta$dif))
