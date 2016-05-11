@@ -109,9 +109,9 @@ sigma <- 3.58
 se <- sigma / sqrt(n)
 
 # CIlow
-muhat + -1 * qt(1 - (.05 / 2), n - 1) * se)
+muhat + -1 * qt(1 - (.05 / 2), n - 1) * se
 # CIhigh
-muhat + 1 * qt(1 - (.05 / 2), n - 1) * se)
+muhat + 1 * qt(1 - (.05 / 2), n - 1) * se
 
 # t-test
 mu0 <- 24.1 # the H0 hypothesis
