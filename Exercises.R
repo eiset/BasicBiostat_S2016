@@ -6,13 +6,15 @@
 
 # Data can be loaded using the excel files with the "gdata" package or the .dta
 # (Stata) or SPSS files with the "foregin" package. Alternatively, data can be
-# convertet to .csv files and loaded using the base function read.csv().
+# convertet to .csv files and loaded using the base function read.csv(). I will
+# use csv files saved in my working directory -> data. The working directory
+# can be displayed and set with getwd() and setwd() respectively.
 
 # The .log (Stata) files provided at
 # http://www.biostat.au.dk/teaching/basicbiostat/exercises.html
 # has been used as template for the answers below.
 
-# Libraries will be called as they are used. The can all be installed with
+# Libraries will be called as they are used. They can all be installed with
 # the install.packages() command.
 
 # Below is a couple of convenience functions that I will use throughout the
@@ -55,7 +57,6 @@ SumFit <- function(model) {
 # I have not made a point of keeping the enviroment tidy. rm() should be called
 # as appropriate and at least between sections (e.g. after exercise 1.5).
 
-# The entire code is available at https://github.com/eiset/BasicBiostat_S2016.git
 
 # exercise 1.1 -----------------------------------------------------------
 
@@ -188,10 +189,6 @@ curve(dnorm(x, mean = mu, sd = sigma), col = "blue", add = TRUE)
 # rm(list = ls()) # !!!This command clears everything in the workspace!!!
 
 # exercise 1.3 -----------------------------------------------------------
-
-# From the stata log: "A more detailed solution is given in the file:
-# "solution1_3.pdf".
-
 dta <- read.csv("./data/siblings.csv")
 str(dta)
 
@@ -225,14 +222,19 @@ summary(bb$wdif) # The one that "sticks out" is at -2440
 
 # Histogram without the "outlier"
 xo <- bb[bb$wdif > -2000, "wdif"]
-hist(xo, prob = TRUE); curve(dnorm(x, mean = mean(xo), sd = sd(xo)), col = "red",
+hist(xo, prob = TRUE)
+curve(dnorm(x, mean = mean(xo), sd = sd(xo)), col = "red",
                              add = TRUE)
 rm(xo)
 
 ## Q2bb
-n <- length(bd); mu <- mean(bd); sigma <- sd(bd); se <- sigma / sqrt(n)
+n <- length(bd)
+mu <- mean(bd)
+sigma <- sd(bd)
+se <- sigma / sqrt(n)
 
-mu + -1 * qt(1 - (.05 / 2), n - 1) * se; mu + 1 * qt(1 - (.05 / 2), n - 1) * se
+mu + -1 * qt(1 - (.05 / 2), n - 1) * se
+mu + 1 * qt(1 - (.05 / 2), n - 1) * se
 
 # -*- -*- -*-
 # Difference on AVERAGE birth weight: the second born expected to be 112-250g
@@ -272,7 +274,10 @@ bg <- dta[dta$sex1st == 1 & dta$sex2nd == 2, ]
 
 # Dotplot, boxplot, QQ-plot and histogram of the differences in birth weight
 bgd <- bg$wdif
-plot(bgd); boxplot(bgd); qqnorm(bgd); qqline(bgd)
+plot(bgd)
+boxplot(bgd)
+qqnorm(bgd)
+qqline(bgd)
 hist(bgd, prob = TRUE); curve(dnorm(x, mean = mean(bgd), sd = sd(bgd)), col = "red",
                               add = TRUE)
 
@@ -297,7 +302,6 @@ t.test(bgd, mu = 0, alternative = c("two.sided"))
 # For boy-boy the mean is over zero, for boy-girl around 0, but we can't leave
 # out that the mean birth weight of the girl is 135g greater.
 
-# rm(list = ls()) # !!!This command clears everything in the workspace!!!
 
 # exercise 1.4 -----------------------------------------------------------
 dta <- read.csv("./data/trigly.csv")
@@ -325,16 +329,15 @@ matrix(data = c(nrow(dta[dta$lntri < (qnorm(.025, mu, sigma)), ]),
 # There is (almost) exactly 2.5% of the observations below the lower limit of
 # the 95%PI and 3% of the observations are above. The calculated PI seems reasonable.
 
-# rm(list = ls()) # !!!This command clears everything in the workspace!!!
 
 # exercise 1.5 -----------------------------------------------------------
 
 dta <- read.csv("./data/siblings.csv")
 
-library(ggplot2)
 dta$sex1 <- factor(dta$sex1st, labels = c("boy", "girl"))
 dta$sex2 <- factor(dta$sex2nd, labels = c("boy", "girl"))
 
+library(ggplot2)
 g <- ggplot(dta, aes(weight1st, weight2nd)) +
   geom_point(alpha = 0.6) +
   facet_grid(sex1 ~ sex2) +
@@ -343,7 +346,7 @@ g
 
 ## Q1
 # Discussion about independence: If the first child is big/small, the same is
-# expected for the secondThis is probably due to a mixture of heritage and common
+# expected for the second. This is probably due to a mixture of heritage and common
 # environment.
 
 # The interpretation can be improved by adding a "guideline":
@@ -379,6 +382,7 @@ g <- ggplot(dta, aes(sample = systol)) +
   stat_qq(alpha = 0.5) +
   geom_abline(intercept = mean(dta$systol), slope = sd(dta$systol), colour = "blue")
 g
+
 # From the stata log file: "Except the outliers, it looks like the normal
 # distribution is a good approximation. The data are spread more or less equally
 # in the 2 groups."
@@ -454,7 +458,6 @@ t.test(dta[dta$group == "control", "systol"], dta[dta$group == "fish oil", "syst
 # it. Comment on the lower and upper limit and not only about the 0 being in it.
 # Remember that there is a difference in the increase in blood pressure (in the
 # Fish oil group). A comment about the outliers would be appropriate.
-
 
 # -*- -*- -*- -*-
 # Methods: Mean systolic blood pressure (SBP) were compared between the fish oil
@@ -690,6 +693,7 @@ str(dta)
 
 dta <- dta[!dta$sex1st == 2, ]
 # We are now down to 503 observations
+
 # Long format. Pair variable is introduced to keep the pairs
 dta <- dta %>%
         mutate(pair = 1:nrow(dta),
@@ -828,7 +832,9 @@ CheckNorm(dta$dif)
 
 ## Q2 + Q3 + Q4
 Explore(dta$dif, length(dta$dif))
+
 mu <- mean(dta$dif); sigma <- sd(dta$dif)
+
 ggplot(dta, aes(ave, dif)) +
         geom_point() +
         geom_hline(yintercept = mu) +
@@ -856,6 +862,7 @@ dta <- read.csv("./data/captopril.csv")
 # From the stata log file: RCTof diabetics dependent on insulin with nephropathy
 # (Hommel et al., BMJ, 1986)
 str(dta)
+
 dta$grp <- ifelse(dta$group == 1, "captopril", "placebo")
 dta$grp <- factor(dta$grp)
 
@@ -906,6 +913,7 @@ wilcox.test(dta[dta$grp == "captopril", "dif"],
 
 dta <- read.csv("./data/hp.csv")
 str(dta)
+
 dta$grp <- ifelse(dta$group == 1, "passive", "active")
 dta$grp <- factor(dta$grp)
 
@@ -943,11 +951,11 @@ g1 <- filter(dta, group == 1) %>%
                                           length(dta[dta$group == 1, "dif"])),
                                   ConfInt(dta[dta$group == 1, "dif"], -1, .05,
                                           length(dta[dta$group == 1, "dif"]))
-        ),
+                                          ),
         linetype = 2) +
         geom_hline(yintercept = c(qnorm(.975, mu.psv, sigma.psv),
                                   qnorm(.025, mu.psv, sigma.psv)
-        ),
+                                  ),
         linetype = 1, colour = "blue") +
         scale_y_continuous(limits = c(-10, 450)) +
         labs(title = "Passive\nBland-Altman plot\nwith lines mean, 95CI, 95PI, and 0")
@@ -961,11 +969,11 @@ g2 <- filter(dta, group == 2) %>%
                                           length(dta[dta$group == 2, "dif"])),
                                   ConfInt(dta[dta$group == 2, "dif"], -1, .05,
                                           length(dta[dta$group == 2, "dif"]))
-        ),
+                                          ),
         linetype = 2) +
         geom_hline(yintercept = c(qnorm(.975, mu.actv, sigma.actv),
                                   qnorm(.025, mu.actv, sigma.actv)
-        ),
+                                  ),
         linetype = 1, colour = "blue") +
         scale_y_continuous(limits = c(-10, 450)) +
         labs(title = "Active\nBland-Altman plot\nwith lines mean, 95CI, 95PI, and 0")
@@ -1004,11 +1012,11 @@ g1 <- filter(dta, group == 1) %>%
                                           length(dta[dta$group == 1, "ldif"])),
                                   ConfInt(dta[dta$group == 1, "ldif"], -1, .05,
                                           length(dta[dta$group == 1, "ldif"]))
-        ),
+                                          ),
         linetype = 2) +
         geom_hline(yintercept = c(qnorm(.975, mu.psv, sigma.psv),
                                   qnorm(.025, mu.psv, sigma.psv)
-        ),
+                                  ),
         linetype = 1, colour = "blue") +
         scale_y_continuous(limits = c(-0.01, 0.41)) +
         labs(title = "Passive, log transf.\nBland-Altman plot\nwith lines mean, 95CI, 95PI, and 0")
@@ -1022,11 +1030,11 @@ g2 <- filter(dta, group == 2) %>%
                                           length(dta[dta$group == 2, "ldif"])),
                                   ConfInt(dta[dta$group == 2, "ldif"], -1, .05,
                                           length(dta[dta$group == 2, "ldif"]))
-        ),
+                                          ),
         linetype = 2) +
         geom_hline(yintercept = c(qnorm(.975, mu.actv, sigma.actv),
                                   qnorm(.025, mu.actv, sigma.actv)
-        ),
+                                  ),
         linetype = 1, colour = "blue") +
         scale_y_continuous(limits = c(-0.01, 0.41)) +
         labs(title = "Active, log transf.\nBland-Altman plot\nwith lines mean, 95CI, 95PI, and 0")
@@ -1077,7 +1085,8 @@ filter(dta, sex1st == 1 & sex2nd == 1) %>%
                                                           dta$sex2nd == 1, "wdif"
                                                   ]))
                                   ),
-                   linetype = 2) +
+                   linetype = 2
+                   ) +
         geom_hline(yintercept = c(qnorm(.975, mu, sigma),
                                   qnorm(.025, mu, sigma)
                                   ),
@@ -1085,6 +1094,7 @@ filter(dta, sex1st == 1 & sex2nd == 1) %>%
         labs(title = "Bland-Altman plot\nwith lines mean, 95CI, 95PI, and 0")
 
 CheckNorm(dta[dta$sex1st == 1 & dta$sex2nd == 1, "wdif"])
+
 dta$wldif <- with(dta, log(weight2nd / weight1st))
 dta$wlave <- with(dta, (log(weight2nd) + log(weight1st)) / 2)
 
@@ -1093,6 +1103,7 @@ Explore(dta[dta$sex1st == 1 & dta$sex2nd == 1, "wldif"],
 
 mu <- mean(dta[dta$sex1st == 1 & dta$sex2nd == 1, "wldif"])
 sigma <- sd(dta[dta$sex1st == 1 & dta$sex2nd == 1, "wldif"])
+
 filter(dta, sex1st == 1 & sex2nd == 1) %>%
         ggplot(aes(wlave, wldif)) +
         geom_point() +
@@ -1110,11 +1121,11 @@ filter(dta, sex1st == 1 & sex2nd == 1) %>%
                                                   dta$sex1st == 1 &
                                                           dta$sex2nd == 1, "wldif"
                                                   ]))
-        ),
+                                ),
         linetype = 2) +
         geom_hline(yintercept = c(qnorm(.975, mu, sigma),
                                   qnorm(.025, mu, sigma)
-        ),
+                                  ),
         linetype = 1, colour = "blue") +
         labs(title = "Bland-Altman plot\nwith lines mean, 95CI, 95PI, and 0")
 
@@ -1151,11 +1162,11 @@ ggplot(dta, aes(ave, dif)) +
         geom_hline(yintercept = 0, colour = "red") +
         geom_hline(yintercept = c(ConfInt(dta$dif, 1, .05, nrow(dta)),
                                   ConfInt(dta$dif, -1, .05, nrow(dta))
-        ),
+                                  ),
         linetype = 2) +
         geom_hline(yintercept = c(qnorm(.975, mu, sigma),
                                   qnorm(.025, mu, sigma)
-        ),
+                                  ),
         linetype = 1, colour = "blue") +
         labs(title = "Bland-Altman plot\nwith lines mean, 95CI, 95PI, and 0")
 
