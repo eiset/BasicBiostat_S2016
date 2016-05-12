@@ -1423,12 +1423,12 @@ ggplot(dtamen, aes(height, PEFR)) +
         geom_smooth(method = "lm")
 
 ## Q2
-m1 <- glm(PEFR ~ height, data = dtamen, family = "gaussian")
+m1 <- lm(PEFR ~ height, data = dtamen)
 SumFit(m1)
 
 ## Q3
 dtamen$height170 <- dtamen$height - 170
-m2 <- glm(PEFR ~ height170, data = dtamen, family = "gaussian")
+m2 <- lm(PEFR ~ height170, data = dtamen)
 SumFit(m2)
 
 ## Q4 + Q5
@@ -1438,8 +1438,7 @@ plot(m2)
 # Returning to all sexes
 dta$height170 <- dta$height - 170
 
-m3 <- glm(PEFR ~ sex + height170 + sex * height170, data = dta,
-          family = "gaussian")
+m3 <- lm(PEFR ~ sex + height170 + sex * height170, data = dta)
 SumFit(m3)
 
 dta$sex2 <- relevel(dta$sex, ref = 2)
@@ -1496,10 +1495,10 @@ ggplot(dta, aes(vo2, rd)) +
 ## Q2
 dta$vo2_30 <- dta$vo2 - 30
 
-m1 <- glm(rd ~ vo2_30, data = dta, family = "gaussian")
+m1 <- lm(rd ~ vo2_30, data = dta)
 SumFit(m1)
 
-m2 <- glm(rd ~ vo2, data = dta, family = "gaussian")
+m2 <- lm(rd ~ vo2, data = dta)
 SumFit(m2)
 
 
@@ -1518,7 +1517,7 @@ matrix(data = c(pred$fit,
        dimnames = list("fitted", c("estimate", "CIlow", "CIhigh"))
        )
 
-# The inverse link function could be applied to the fitted values
+# The inverse link function may be applied to the fitted values
 fit2 <- m2$family$linkinv(fit)
 CIhigh2 <- m2$family$linkinv(CIhigh)
 CIlow2 <- m2$family$linkinv(CIlow)
@@ -1544,10 +1543,10 @@ ggplot(dta, aes(lvo2, lrd)) +
 
 dta$lvo2_30 <- log(dta$vo2 / 30)
 
-m3 <- glm(lrd ~ lvo2_30, data = dta, family = "gaussian")
+m3 <- lm(lrd ~ lvo2_30, data = dta)
 SumFit(m3)
 
-m4 <- glm(lrd ~ lvo2, data = dta, family = "gaussian")
+m4 <- lm(lrd ~ lvo2, data = dta)
 SumFit(m4)
 
 d <- data.frame(lvo2 = 3.4011974)
