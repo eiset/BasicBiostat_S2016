@@ -21,6 +21,11 @@
 # Below is a couple of convenience functions that I will use throughout the
 # exercises:
 
+# CI for t-distribution (95%CI is part of the Explore function):
+ConfInt <- function(d, limit, alpha, N) {
+        mean(d) + limit * qt(1 - (alpha/2), N-1) * (sd(d)/sqrt(N))
+}
+
 # A matrix with many of the common exploratory stats including 95%CI and 95%PI
 Explore <- function(d, N) {
         matrix(data = c(N,
@@ -36,6 +41,7 @@ Explore <- function(d, N) {
                         "Value")
         )
 }
+
 # Series of plots to check normality assumption:
 CheckNorm <- function(d) {
         par(mfrow = c(1, 2))
@@ -45,10 +51,7 @@ CheckNorm <- function(d) {
         curve(dnorm(x, mean = mean(d), sd = sd(d)), col = "red", add = TRUE)
         par(mfrow = c(1, 1))
 }
-# CI for t-distribution (95%CI is part of the Explore function):
-ConfInt <- function(d, limit, alpha, N) {
-        mean(d) + limit * qt(1 - (alpha/2), N-1) * (sd(d)/sqrt(N))
-}
+
 # Summary stats from regression models
 SumFit <- function(model) {
         print(summary(model))
@@ -96,8 +99,6 @@ skewness(db)
 kurtosis(db)
 
 ## Q3
-# Base R was used in the answers above. In the following the dplyr package will
-# be used to run similar commands with more compact code
 
 ConfInt(bmi, c(-1, 1), .05, nrow(bmi))
 
@@ -125,6 +126,9 @@ t <- (muhat - mu0) / (sigma/sqrt(n)) # t statistic
 dta <- read.csv("./data/trigly.csv")
 dim(dta)
 str(dta)
+
+# Base R was used in the answers above. In the following the dplyr package will
+# be used to run similar commands with more compact code
 
 library(dplyr)
 # For strata (sample)
@@ -180,7 +184,7 @@ matrix(data = c(nrow(dta[dta$trigly < (qnorm(.025, mu, sigma)), ]),
 #  -*- -*- -*-
 
 ## Q4
-# Skewed distribution: Assumption of normality not satisfied! Show this on
+# Skewed distribution: Assumption of normality not satisfied! Show this with
 # histogram
 
 hist(dta$trigly, prob = TRUE)
@@ -210,13 +214,13 @@ bb <- dta[dta$sex1st == 1 & dta$sex2nd == 1, ]
 ## Q1bb
 # Dotplot, boxplot, QQ-plot and histogram of the differences in birth weight
 bd <- bb$wdif
-plot(bd); boxplot(bd);
+plot(bd); boxplot(bd)
 
 CheckNorm(bd)
 
 # -*- -*- -*-
-# Data reasonably well normally distributed. One observation sticks out, one can
-# try to analyze the data without to see if it changes the results.
+# Data is reasonably well normally distributed. One observation sticks out. 
+# We can try to analyze the data without to see if it changes the results.
 # -*- -*- -*-
 
 summary(bb$wdif) # The one that "sticks out" is at -2440
@@ -239,7 +243,7 @@ mu + 1 * qt(1 - (.05 / 2), n - 1) * se
 
 # -*- -*- -*-
 # Difference on AVERAGE birth weight: the second born expected to be 112-250g
-# heavier. 0 is not inside the CI, which means that p-value<5%
+# heavier. 0 is not inside the CI, which means that p-value < 5%
 # -*- -*- -*-
 
 ## Q3bb
@@ -538,7 +542,8 @@ dta$day <- as.numeric(dta$day)
 str(dta)
 
 # 1 = passive, 2 = active
-dta$grp <- ifelse(dta$group == 1, "passive", "active"); dta$grp <- factor(dta$grp)
+dta$grp <- ifelse(dta$group == 1, "passive", "active")
+dta$grp <- factor(dta$grp)
 
 ## Q1
 summary(dta)
@@ -647,7 +652,7 @@ ggplot(dtalog, aes(grp, day)) +
 psivlog <- dtalog[dtalog$grp == "passive", "day"]
 actvlog <- dtalog[dtalog$grp == "active", "day"]
 
-par(mfrow = c(1, 2)) # To get both plot in same graph
+par(mfrow = c(1, 2)) # To get both plots in same graph
 hist(psivlog, prob = TRUE, ylim = c(0, 4))
 curve(dnorm(x, mean = mean(psivlog), sd = sd(psivlog)), col = "red", add = TRUE)
 hist(actvlog, prob = TRUE, ylim = c(0, 4))
