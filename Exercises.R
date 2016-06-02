@@ -5,10 +5,11 @@
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 # Data can be loaded using the excel files with the "gdata" package or the .dta
-# (Stata) or SPSS files with the "foregin" package. Alternatively, data can be
-# convertet to .csv files and loaded using the base function read.csv(). I will
-# use csv files saved in my working directory -> data. The working directory
-# can be displayed and set with getwd() and setwd() respectively.
+# (Stata) or SPSS files with the "foregin" package (see "Appendix: if you want to 
+# use .dta files" in this repo). Alternatively, data can be convertet to .csv 
+# files and loaded using the base function read.csv(). I will use csv files saved 
+# in my working directory -> data. The working directory can be displayed and set 
+# with getwd() and setwd() respectively.
 
 # The .log (Stata) files provided at
 # http://www.biostat.au.dk/teaching/basicbiostat/exercises.html
