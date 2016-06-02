@@ -1,5 +1,5 @@
 # If you do not want to download and convert all the Stata files this method can be used. 
-# You may have to do some recoding in the R file.
+# You may have to do some recoding in the Exercises.R file.
 
 library(foreign)
 dtaurl <- file.path("[path-of-dta-file]", "[name-of-dta-file]") 
