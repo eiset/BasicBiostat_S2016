@@ -380,7 +380,7 @@ str(dta)
 # qqnorm(dta[dta$group == "control", "systol"])
 # qqline(dta[dta$group == "control, "systol"])
 
-# With ggplot both broups can easily be plotted side by side
+# With ggplot both groups can easily be plotted side by side
 library(ggplot2)
 g <- ggplot(dta, aes(sample = systol)) +
   facet_grid(. ~ group) +
@@ -445,7 +445,7 @@ sd(dta$systol)
 # To get each df for each group:
 df1 <- as.numeric(t.test(dta[dta$grp == "control", "systol"])$parameter)
 df2 <- as.numeric(t.test(dta[dta$grp == "fish oil", "systol"])$parameter)
-# Another more simplistic approach would be to just use lenght()
+# Another more simplistic approach would be to just use lenght()-1
 # or nrow()-1 for each subset.
 
 # Calculation of the common std. deviation
@@ -494,7 +494,7 @@ ggplot(dta2, aes(grp, systol)) +
   geom_jitter(alpha = 0.4)
 
 ## Q2
-# there are several ways of creating histogram (or density plot) with an overlayed
+# There are several ways of creating histogram (or density plot) with an overlayed
 # normal curve. A simplistic method - with base R - is the one used previously
 # after subsetting:
 
