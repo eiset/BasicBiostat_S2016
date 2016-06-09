@@ -1260,7 +1260,7 @@ p0 <- d0 / n0
 
 rd <- p1 - p0
 se.rd <- sqrt((p1 * (1 - p1) / n1) + (p0 * (1 - p0) / n0))
-conf.int <- rd + c(-1,1) * 1.96 * se.rd
+conf.int <- rd + c(-1, 1) * 1.96 * se.rd
 rd; se.rd; conf.int
 
 ## Q4
@@ -1457,8 +1457,8 @@ dta$sex3 <- as.integer(dta$sex)
 m5 <- glm(PEFR ~ sex + height170, data = dta, family = "gaussian")
 summary(m5)
 
-# From the stata log file: _cons ("(Intercept)" in R) is the intersept for the
-# females. 2.sex is difference in intercepte for males as compared to females.
+# From the stata log file: _cons ("(Intercept)" in R, red.) is the intersept for the
+# females. 2.sex is difference in intercept for males as compared to females.
 # Thus _cons + 2.sex is the intercept for the males, i.e. the mean PEFR for males
 # at hight 170 cm.
 
@@ -1787,8 +1787,8 @@ SumFit(m2)
 
 # Again several ways to do it. One approach is to alter the contrasts. It is
 # important to note that the default reference level for character variables
-# is determined by alphabetical order (thus when creating a factor 1 = "lowest
-# alphebetically"):
+# is determined by alphabetical order (thus when creating a factor 1 = [lowest
+# alphebetically]):
 m3 <- lm(haemo ~ C(tp, contr.treatment(3, base = 2)), data = dta)
 # Look at the first explanatory variable
 SumFit(m3)
@@ -1938,7 +1938,7 @@ SumFit(m1)
 # H: log(OR)=log(0.9) or H: log(OR)-log(0.9)=0. The last hypothesis can be
 # evaluated in the lincom command.
 
-# A nice way to diaplay the exponentiated data
+# A nice way to display the exponentiated data
 exp(cbind(OR = coef(m1), confint(m1)))
 
 ## Q5
@@ -2004,7 +2004,7 @@ summary(glm(ch.pos ~ 1, data = dta, subset = group == 0,
             family = "binomial"))
 summary(glm(ch.pos ~ 1, data = dta, subset = group == 1,
             family = "binomial"))
-# *** NOTICE *** NOTICE *** NOTICE ***
+# *** end of NOTICE *** 
 
 epitab(dta$grp, dta$ch.pos,
        method = c("oddsratio"),
@@ -2119,7 +2119,7 @@ survdiff(dta.surv ~ sex.fc, data = dta)
 plot(m2, fun = "cloglog", col = c("red", "blue"), xlim = c(0.4, 20))
 legend(10, -3.5, c("female", "male"), lty = c(1, 1), lwd=c(2, 2), col = c("red", "blue"))
 
-# To get only the log-log transformation on the t-axis
+# To get only the log-log transformation on the y-axis
 Clly <- function(p) {return(log(-log(p)))}
 plot(m2, fun = Clly, col = c("red", "blue"))
 
