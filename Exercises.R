@@ -2215,7 +2215,7 @@ t.test(dta[dta$grp == 2, "avg"], dta[dta$grp == 1, "avg"], var.equal = TRUE)
 t.test(dta[dta$grp == 2, "avg"], dta[dta$grp == 1, "avg"])
 wilcox.test(dta[dta$grp == 2, "avg"], dta[dta$grp == 1, "avg"], correct = FALSE)
 
-# lowdose (or highdose instead)or highdose) in the two groups instead
+# lowdose or highdose in the two groups
 t.test(dta[dta$grp == 2, "lowdose"], dta[dta$grp == 1, "lowdose"], var.equal = TRUE)
 t.test(dta[dta$grp == 2, "highdose"], dta[dta$grp == 1, "highdose"], var.equal = TRUE)
 
