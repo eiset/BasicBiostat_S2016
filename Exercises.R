@@ -1998,18 +1998,28 @@ SumFit(m1)
 ## Q4
 dta$ch.pos <- factor(ifelse(dta$ch.tats > 0, 1, 0))
 
-# *** NOTICE *** NOTICE *** NOTICE ***
-# I think the following is incorrect...but I cannot figure out what I do wrong
-summary(glm(ch.pos ~ 1, data = dta, subset = group == 0,
-            family = "binomial"))
-summary(glm(ch.pos ~ 1, data = dta, subset = group == 1,
-            family = "binomial"))
-# *** end of NOTICE *** 
+# Binomial test for the placebo group: the probability of increasing level of 
+# Tatsosib for those who were given placebo treatment
+binom.test(nrow(dta[dta$ch.pos == 1 & dta$grp %in% "placebo", ]), 
+        nrow(dta[dta$grp %in% "placebo", ]))
 
+# The estimated probability of increased level of Tatsosib is 0.49 which is 
+# very close to being random (0.5) and indeed the CI and p-value confirms that
+# the probability of experincing an increase were no different than the probability 
+# of experincing no change or a decrease.
+
+# The same for the treatment group
+binom.test(nrow(dta[dta$ch.pos == 1 & dta$grp %in% "drug", ]), 
+        nrow(dta[dta$grp %in% "drug", ]))
+# The conclusion is opposit that for placebo: There is a great probability of 
+# having an increase of Tatsosib with the treatment.
+
+library(epitools)
 epitab(dta$grp, dta$ch.pos,
-       method = c("oddsratio"),
-       rev = "columns",
-       verbose = TRUE)
+       method = "riskratio",
+       rev = "rows")
+# If preferred "risk" can be canged to "odds" under method. Risk difference are
+# calculated as in exercise 4.1.
 
 ## Q5
 #-
