@@ -1,8 +1,8 @@
 # If you do not want to download and convert all the Stata files this method can be used. 
 # You may have to do some recoding in the Exercises.R file.
 # NOTICE: As of July 2016 this will not work with dta-files svaed as Stata 14 files.
-# Alternatives are in Stata 14: Save as Stata 13 or older. In R: Use Hadley's haven
-# package: https://cran.r-project.org/web/packages/haven/haven.pdf
+# Alternatives are: (in Stata 14) Save as Stata 13 or older or (in R) use Hadley's haven
+# package with function read_dta: https://cran.r-project.org/web/packages/haven/haven.pdf
 
 library(foreign)
 dtaurl <- file.path("[path-of-dta-file]", "[name-of-dta-file]") 
