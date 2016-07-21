@@ -1239,10 +1239,10 @@ chisq.test(dta$inf, dta$vac)
 
 library(epitools)
 epitab(dta$vac, dta$inf,
-       method = c("riskratio"),
+       method = "riskratio",
        verbose = TRUE)
 epitab(dta$vac, dta$inf,
-       method = c("oddsratio"))
+       method = "oddsratio")
 
 # Notice that this function (and the equvivalent in Epi package) gives another
 # structure of the data than e.g. Stata.
@@ -1286,7 +1286,7 @@ binom.test(length(dta[dta$treatment == "1" & dta$survival == "1", "survival"]),
 
 ## Q2+Q3
 epitab(dta$treatment, dta$survival,
-       method = c("riskratio"))
+       method = "riskratio")
 chisq.test(dta$treatment, dta$survival)
 
 # exercise 4.3 ------------------------------------------------------------
@@ -1402,7 +1402,7 @@ dta$lbw1 <- with(dta, ifelse(!weight1st %in% NA,
                              ifelse(weight1st < 2500, 1, 0),
                              NA))
 
-epitab(dta$gender1, dta$lbw1, rev = "rows", method = c("riskratio"))
+epitab(dta$gender1, dta$lbw1, rev = "rows", method = "riskratio")
 table(dta$lbw1, dta$gender1)
 prop.test(c(16, 18), c(487 + 16, 479 + 18))
 
@@ -1925,7 +1925,7 @@ table(dta$prty, dta$ptd2)
 ## Q2
 library(epitools)
 epitab(dta$ptd2, dta$prty,
-       method = c("oddsratio"),
+       method = "oddsratio",
        rev = "columns",
        verbose = TRUE)
 
