@@ -5,7 +5,7 @@
 # package with function read_dta: https://cran.r-project.org/web/packages/haven/haven.pdf
 
 library(foreign)
-dtaurl <- file.path("[path-of-dta-file]", "[name-of-dta-file]") 
+dtaurl <- file.path("[path/of/dta/file]", "[name/of/dta/file]") 
 dta <- read.dta(dtaurl)
 
 # Example with albumin data set
