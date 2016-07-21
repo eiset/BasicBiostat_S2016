@@ -25,6 +25,7 @@
 ConfInt <- function(d, limit, alpha, N) {
         mean(d) + limit * qt(1 - (alpha/2), N-1) * (sd(d)/sqrt(N))
 }
+# where "limit" should take 1 or -1 for upper or lower CI, respectively.
 
 # A matrix with many of the common exploratory stats including 95%CI and 95%PI
 Explore <- function(d, N) {
