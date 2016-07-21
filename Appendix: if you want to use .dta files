@@ -10,5 +10,5 @@ dta <- read.dta(dtaurl)
 
 # Example with albumin data set
 library(foreign)
-dtaurl <- file.paath("http://www.biostat.au.dk/teaching/basicbiostat/files", "albumin.dta")
+dtaurl <- file.path("http://www.biostat.au.dk/teaching/basicbiostat/files", "albumin.dta")
 dta <- read.dta(dtaurl)
