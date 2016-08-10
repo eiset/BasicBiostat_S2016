@@ -4,5 +4,5 @@ The data, stata log files, the exercises and much more can be found at http://ww
 
 I am by no means a programmer or a statistician so I expect that some of the code can be done more efficiently than what I propose. I am happy to recieve any comments and suggestions at eiset@ph.au.dk.
 
-Enjoy, 
-Andreas
+Enjoy
+/Andreas
