@@ -4,12 +4,14 @@
 # System: x86_64; Linux 4.2.0-35-generic; R version: 3.2.2
 # --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-# Data can be loaded using the excel files with the "gdata" package or the .dta
-# (Stata) or SPSS files with the "foregin" package (see "Appendix: if you want to 
-# use .dta files" in this repo). Alternatively, data can be convertet to .csv 
-# files and loaded using the base function read.csv(). I will use csv files saved 
-# in my working directory -> data. The working directory can be displayed and set 
-# with getwd() and setwd() respectively.
+# Data can be convertet to .csv files and loaded using the base function read.csv(). 
+# I will use csv files saved in my working directory -> data. The working directory 
+# can be displayed and set with getwd() and setwd() respectively. 
+# UPDATE: Even though I will not go through all the code and correct  accordingly 
+# (see "Appendix: if you want to use .dta files" in this repo), I recommend the 
+# haven package by Mr. Wickham et al. With the function read_dta the Stata files 
+# (.dta) can be loaded directly, including lots of the structures from Stata (labels 
+# etc). There are several other advantages to this method: https://github.com/hadley/haven.
 
 # The .log (Stata) files provided at
 # http://www.biostat.au.dk/teaching/basicbiostat/exercises.html
