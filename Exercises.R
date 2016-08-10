@@ -14,8 +14,8 @@
 # etc). There are several other advantages to this method: https://github.com/hadley/haven.
 
 # The .log (Stata) files provided at
-# http://www.biostat.au.dk/teaching/basicbiostat/exercises.html
-# has been used as template for the answers below.
+# http://www.biostat.au.dk/teaching/basicbiostat/exercises.html has been used as template 
+# for the answers below.
 
 # Libraries will be called as they are used. They can all be installed with
 # the install.packages() command.
