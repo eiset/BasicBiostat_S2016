@@ -1,3 +1,8 @@
+# UPDATE: Below is an example using the haven package by Mr. Wickham et al. to load .dta files
+# (as generated in Stata). Contrary to the foreign package this will also load .dta
+# files saved in Stata 13 and 14 (see comment below). Use the same procedure as below (for
+# the foreign package) substituting read.dta with read_dta.
+
 # If you do not want to download and convert all the Stata files this method can be used. 
 # You may have to do some recoding in the Exercises.R file.
 # NOTICE: As of July 2016 this will not work with dta-files saved in Stata 13 or 14 files.
